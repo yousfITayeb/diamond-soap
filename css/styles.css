@@ -2,6 +2,71 @@
    Diamond Soap Naturals — Premium Luxury Landing Page
    ============================================================ */
 
+/* ---------- Self-hosted Fonts ---------- */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('../assets/fonts/inter-300.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/inter-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../assets/fonts/inter-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../assets/fonts/inter-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/inter-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cairo';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('../assets/fonts/cairo-300.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cairo';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/cairo-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cairo';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../assets/fonts/cairo-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cairo';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/cairo-700.woff2') format('woff2');
+}
+
 :root {
   --marble: #F8F6F2;
   --gold: #C8A96A;
@@ -44,7 +109,10 @@
 /* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+html { -webkit-text-size-adjust: 100%; }
 body {
   font-family: var(--font-en);
   color: var(--text);
@@ -53,7 +121,7 @@ body {
   font-weight: 400;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  transition: background 0.6s var(--ease), color 0.6s var(--ease);
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
 }
 [lang="ar"], .ar { font-family: var(--font-ar); }
 img, svg, video { display: block; max-width: 100%; }
@@ -93,11 +161,22 @@ ul { list-style: none; }
 .site-header {
   position: sticky; top: 0; z-index: 50;
   padding: 14px clamp(16px, 5vw, 40px);
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  background: linear-gradient(180deg, var(--surface-strong), transparent);
+  background: rgba(255, 255, 255, 0.85);
   border-bottom: 1px solid rgba(200,169,106,0.18);
   animation: dropIn 0.9s var(--ease) both;
+}
+@supports (backdrop-filter: blur(1px)) {
+  .site-header {
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    background: linear-gradient(180deg, var(--surface-strong), transparent);
+  }
+}
+[data-theme="dark"] .site-header { background: rgba(28, 26, 23, 0.85); }
+[data-theme="dark"] @supports (backdrop-filter: blur(1px)) {
+  [data-theme="dark"] .site-header {
+    background: linear-gradient(180deg, var(--surface-strong), transparent);
+  }
 }
 @keyframes dropIn { from { transform: translateY(-100%); opacity: 0; } to { transform: none; opacity: 1; } }
 
@@ -142,9 +221,6 @@ ul { list-style: none; }
   overflow: hidden;
 }
 .hero-media { position: absolute; inset: 0; z-index: 0; }
-.hero-video { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.6s var(--ease); }
-.hero-video.is-ready { opacity: 0.55; }
-[data-theme="dark"] .hero-video.is-ready { opacity: 0.45; }
 .hero-fallback {
   position: absolute; inset: 0;
   background:
@@ -163,7 +239,6 @@ ul { list-style: none; }
 .hero-glass {
   position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(248,246,242,0.10), rgba(248,246,242,0.30) 50%, rgba(248,246,242,0.55));
-  backdrop-filter: blur(2px);
 }
 [data-theme="dark"] .hero-glass { background: linear-gradient(180deg, rgba(13,13,15,0.30), rgba(13,13,15,0.55) 50%, rgba(13,13,15,0.80)); }
 
@@ -172,6 +247,7 @@ ul { list-style: none; }
   position: absolute; bottom: -10px; border-radius: 50%;
   background: radial-gradient(circle, rgba(255,255,255,0.95), rgba(200,169,106,0.4));
   box-shadow: 0 0 8px rgba(230,210,168,0.8);
+  will-change: transform, opacity;
   animation: floatUp linear infinite;
 }
 @keyframes floatUp {
@@ -239,8 +315,7 @@ ul { list-style: none; }
   display: flex; align-items: center; justify-content: center; gap: 10px;
   padding: 15px 18px; border-radius: var(--radius);
   font-size: 0.95rem; font-weight: 500; color: var(--text);
-  background: var(--surface); backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  background: rgba(255, 255, 255, 0.85);
   border: 1px solid var(--border-glass);
   box-shadow: var(--shadow-soft), inset 0 1px 0 rgba(255,255,255,0.4);
   transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s var(--ease);
@@ -317,7 +392,7 @@ ul { list-style: none; }
   transform: scaleX(1);
 }
 .about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-.about-stats li { text-align: center; padding: 24px 10px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--border-glass); backdrop-filter: blur(10px); box-shadow: var(--shadow-soft); }
+.about-stats li { text-align: center; padding: 24px 10px; border-radius: var(--radius); background: rgba(255, 255, 255, 0.85); border: 1px solid var(--border-glass); box-shadow: var(--shadow-soft); }
 .stat-num { display: block; font-size: clamp(1.5rem, 6vw, 2.2rem); font-weight: 700; color: var(--gold-deep); line-height: 1; }
 .stat-label { font-size: 0.76rem; letter-spacing: 0.05em; color: var(--text-soft); }
 
@@ -329,7 +404,7 @@ ul { list-style: none; }
   box-shadow: var(--shadow-soft); border: 1px solid rgba(255,255,255,0.4);
   transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease);
 }
-.gallery-card .g-img { position: absolute; inset: 0; transition: transform 0.8s var(--ease); }
+.gallery-card .g-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease); }
 .gallery-card::after {
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(180deg, transparent 50%, rgba(17,17,17,0.55));
@@ -346,8 +421,7 @@ ul { list-style: none; }
 .info-card {
   position: relative; overflow: hidden;
   padding: 26px 22px; border-radius: var(--radius-lg);
-  background: var(--surface); backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  background: rgba(255, 255, 255, 0.85);
   border: 1px solid var(--border-glass);
   box-shadow: var(--shadow-soft), inset 0 1px 0 rgba(255,255,255,0.4);
   transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
@@ -368,8 +442,7 @@ ul { list-style: none; }
 .site-footer {
   position: relative; text-align: center; padding: 56px 20px 40px;
   border-top: 1px solid rgba(200,169,106,0.2);
-  background: linear-gradient(180deg, transparent, var(--surface));
-  backdrop-filter: blur(10px);
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.85));
 }
 .footer-logo { display: inline-grid; place-items: center; margin-bottom: 16px; filter: drop-shadow(0 6px 14px rgba(200,169,106,0.4)); transition: transform 0.5s var(--ease); }
 .footer-logo .logo-img { width: 36px; height: 36px; }
@@ -392,7 +465,7 @@ ul { list-style: none; }
 /* ---------- Lightbox ---------- */
 .lightbox {
   position: fixed; inset: 0; z-index: 100; display: grid; place-items: center;
-  background: rgba(10, 9, 7, 0.82); backdrop-filter: blur(14px);
+  background: rgba(10, 9, 7, 0.92);
   opacity: 0; visibility: hidden; transition: opacity 0.5s var(--ease), visibility 0.5s;
   padding: 24px;
 }

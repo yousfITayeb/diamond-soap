@@ -24,7 +24,7 @@
   /* ---------- Floating particles ---------- */
   const pWrap = document.getElementById("particles");
   if (pWrap && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    const COUNT = window.innerWidth < 760 ? 18 : 34;
+    const COUNT = window.innerWidth < 760 ? 8 : 12;
     for (let i = 0; i < COUNT; i++) {
       const p = document.createElement("span");
       p.className = "particle";
@@ -35,15 +35,6 @@
       p.style.animationDelay = (Math.random() * 12) + "s";
       pWrap.appendChild(p);
     }
-  }
-
-  /* ---------- Hero video fade-in ---------- */
-  const video = document.querySelector(".hero-video");
-  if (video) {
-    const ready = () => video.classList.add("is-ready");
-    video.addEventListener("loadeddata", ready);
-    video.addEventListener("canplay", ready);
-    setTimeout(ready, 2500); // fallback if source missing
   }
 
   /* ---------- Ripple effect ---------- */
@@ -81,10 +72,10 @@
 
   /* ---------- Gallery data ---------- */
   const products = [
-    { name: "Aoi", note: "Sidr · Lavender · Olive", from: "#2d3a2e", to: "#1a1a1a", img: "assets/image 1.jpg" },
-    { name: "Azure Mist", note: "Blue Tansy · Sea", from: "#cfe0f5", to: "#2A6FD6", img: "assets/image 2.jpg" },
-    { name: "Kuro", note: "Coffee · Lemon · Lavender", from: "#c4a882", to: "#3d2b1f", img: "assets/image 3.jpg" },
-    { name: "Hikari", note: "Oat · Lemon", from: "#f0e6d3", to: "#C8B078", img: "assets/image 4.jpg" }
+    { name: "Aoi", note: "Sidr · Lavender · Olive", from: "#2d3a2e", to: "#1a1a1a", img: "assets/image-1.jpg", webp: "assets/image-1.webp" },
+    { name: "Azure Mist", note: "Blue Tansy · Sea", from: "#cfe0f5", to: "#2A6FD6", img: "assets/image-2.jpg", webp: "assets/image-2.webp" },
+    { name: "Kuro", note: "Coffee · Lemon · Lavender", from: "#c4a882", to: "#3d2b1f", img: "assets/image-3.jpg", webp: "assets/image-3.webp" },
+    { name: "Hikari", note: "Oat · Lemon", from: "#f0e6d3", to: "#C8B078", img: "assets/image-4.jpg", webp: "assets/image-4.webp" }
   ];
 
   function soapSVG(from, to, label) {
@@ -115,10 +106,18 @@
     card.className = "gallery-card reveal";
     card.setAttribute("aria-label", "View " + p.name);
     card.style.transitionDelay = (i % 3) * 0.08 + "s";
-    const img = document.createElement("span");
+    const img = document.createElement("img");
     img.className = "g-img";
-    img.style.backgroundImage = `url("${p.img ? p.img : soapSVG(p.from, p.to, p.name)}")`;
-    img.style.backgroundSize = "cover";
+    img.src = p.img;
+    img.alt = p.name + " — " + p.note;
+    img.width = 400;
+    img.height = 533;
+    img.loading = "lazy";
+    img.decoding = "async";
+    if (p.webp) {
+      img.onerror = function() { this.onerror = null; this.src = p.img; };
+      img.src = p.webp;
+    }
     card.appendChild(img);
     const label = document.createElement("div");
     label.className = "g-label";
@@ -136,7 +135,8 @@
   const lightboxClose = document.getElementById("lightboxClose");
 
   function openLightbox(p) {
-    lightboxImg.style.backgroundImage = `url("${p.img ? p.img : soapSVG(p.from, p.to, p.name)}")`;
+    const imgUrl = p.webp || p.img;
+    lightboxImg.style.backgroundImage = `url("${imgUrl}")`;
     lightboxCap.innerHTML = `<span>${p.note}</span>${p.name}`;
     lightbox.classList.add("open");
     lightbox.setAttribute("aria-hidden", "false");
@@ -172,5 +172,12 @@
       });
     }, { threshold: 0.4 });
     sections.forEach((s) => s && navIo.observe(s));
+  }
+
+  /* ---------- Service Worker ---------- */
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./sw.js").catch(() => {});
+    });
   }
 })();

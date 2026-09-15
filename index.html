@@ -7,11 +7,10 @@
   <meta name="description" content="Diamond Soap Naturals — pure, natural, hand-crafted luxury soaps. A premium skincare experience inspired by nature." />
   <title>Diamond Soap Naturals — Luxury Natural Soap</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-400.woff2" crossorigin />
 
-  <link rel="stylesheet" href="css/styles.css" />
+  <!-- Cache-bust: bump ?v= on every deploy, or auto-generate via build script -->
+  <link rel="stylesheet" href="css/styles.min.css?v=20260915" />
 </head>
 <body>
 
@@ -33,7 +32,10 @@
       <div class="brand">
         <span class="brand-name">Diamond Soap <em>Naturals</em></span>
         <a href="#home" class="brand-logo" aria-label="Diamond Soap Naturals home">
-          <img src="assets/hero-poster.jpg" alt="Diamond Soap Naturals" class="logo-img" />
+          <picture>
+            <source srcset="assets/hero-poster-logo.webp" type="image/webp" />
+            <img src="assets/hero-poster-logo.jpg" alt="Diamond Soap Naturals" class="logo-img" width="42" height="42" />
+          </picture>
         </a>
       </div>
 
@@ -48,9 +50,6 @@
     <!-- ============ HERO ============ -->
     <section class="hero" id="home">
       <div class="hero-media" aria-hidden="true">
-        <video class="hero-video" autoplay muted loop playsinline poster="assets/hero-poster.jpg">
-          <!-- Add your loop video here, e.g. <source src="assets/hero.mp4" type="video/mp4" /> -->
-        </video>
         <div class="hero-fallback"></div>
         <div class="hero-glass"></div>
         <div class="particles" id="particles"></div>
@@ -59,8 +58,7 @@
       <div class="hero-content">
         <p class="hero-eyebrow reveal">Natural · Handcrafted · Luxe</p>
         <h1 class="hero-title reveal">Diamond Soap,<br/><span class="gold-text">Refined by Nature</span></h1>
-        <p class="hero-sub reveal">Shine bright like a diamond 
-                      .💎✨️</p>
+        <p class="hero-sub reveal">Shine bright like a diamond .💎✨️</p>
         <p class="hero-sub reveal">مرحبا بيكم صابون طبيعي صنع منزلي 🤍💎.</p>
       </div>
       <!-- Social glass buttons -->
@@ -158,13 +156,15 @@
   <!-- ============ FOOTER ============ -->
   <footer class="site-footer">
     <a href="#top" class="footer-logo" aria-label="Back to top">
-      <img src="assets/hero-poster.jpg" alt="Diamond Soap Naturals" class="logo-img" />
+      <picture>
+        <source srcset="assets/hero-poster-logo.webp" type="image/webp" />
+        <img src="assets/hero-poster-logo.jpg" alt="Diamond Soap Naturals" class="logo-img" width="42" height="42" loading="lazy" />
+      </picture>
     </a>
     <p class="footer-copy">© <span id="year"></span> Diamond Soap Naturals. Crafted with intention.</p>
     <div class="footer-social" role="list" aria-label="Footer social links">
-      <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" role="listitem"><svg viewBox="0 0 320 512" width="18" height="18"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg></a>
-      <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" role="listitem"><svg viewBox="0 0 448 512" width="18" height="18"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg></a>
-      <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok" role="listitem"><svg viewBox="0 0 448 512" width="18" height="18"><path d="M448 209.9a210.1 210.1 0 0 1-122.8-39.3v249.4A162.6 162.6 0 1 1 185 188.3v89.9a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2 121.2 121.2 0 0 0 67 20.1z"/></svg></a>
+      <a href="https://www.facebook.com/share/19XbHPUtQ7/" target="_blank" rel="noopener" aria-label="Facebook" role="listitem"><svg viewBox="0 0 320 512" width="18" height="18"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg></a>
+      <a href="https://www.instagram.com/thediamond20k" target="_blank" rel="noopener" aria-label="Instagram" role="listitem"><svg viewBox="0 0 448 512" width="18" height="18"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg></a>
     </div>
     <button class="back-to-top" id="backToTop" aria-label="Back to top">
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -180,6 +180,6 @@
     </div>
   </div>
 
-  <script src="js/script.js" defer></script>
+  <script src="js/script.min.js?v=20260915" defer></script>
 </body>
 </html>

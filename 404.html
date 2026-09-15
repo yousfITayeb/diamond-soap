@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#F8F6F2" />
+  <title>Page Not Found — Diamond Soap Naturals</title>
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-400.woff2" crossorigin />
+  <link rel="stylesheet" href="css/styles.min.css?v=20260915" />
+  <style>
+    .error-page { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; text-align: center; padding: 40px 20px; }
+    .error-code { font-size: clamp(5rem, 15vw, 8rem); font-weight: 700; background: var(--grad-text); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shimmer 6s linear infinite; }
+    .error-msg { font-size: clamp(1.1rem, 3vw, 1.4rem); color: var(--text-soft); margin: 18px 0 32px; }
+    .error-link { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border-radius: var(--radius); background: var(--grad-gold); color: #2a2113; font-weight: 600; font-size: 0.95rem; transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease); }
+    .error-link:hover { transform: translateY(-3px); box-shadow: var(--shadow-deep); }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <div class="brand">
+        <span class="brand-name">Diamond Soap <em>Naturals</em></span>
+        <a href="index.html" class="brand-logo" aria-label="Diamond Soap Naturals home">
+          <picture>
+            <source srcset="assets/hero-poster-logo.webp" type="image/webp" />
+            <img src="assets/hero-poster-logo.jpg" alt="Diamond Soap Naturals" class="logo-img" width="42" height="42" />
+          </picture>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="error-page">
+    <p class="error-code">404</p>
+    <p class="error-msg">This page doesn't exist or has been moved.</p>
+    <a href="index.html" class="error-link">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to Home
+    </a>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-copy">&copy; 2026 Diamond Soap Naturals. Crafted with intention.</p>
+  </footer>
+</body>
+</html>

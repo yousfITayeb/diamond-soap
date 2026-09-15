@@ -1,0 +1,28 @@
+{
+  "name": "diamond-soap",
+  "version": "1.0.0",
+  "description": "Diamond Soap Naturals — Luxury Natural Soap",
+  "private": true,
+  "scripts": {
+    "build": "npm run minify && npm run images",
+    "minify": "npx terser js/script.js -o js/script.min.js -c -m && npx cleancss css/styles.css -o css/styles.min.css",
+    "images": "node convert-images.js",
+    "dev": "npx serve ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yousfitayeb/diamond-soap.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yousfitayeb/diamond-soap/issues"
+  },
+  "homepage": "https://github.com/yousfitayeb/diamond-soap#readme",
+  "devDependencies": {
+    "clean-css-cli": "^5.6.3",
+    "sharp": "^0.35.4",
+    "terser": "^5.51.2"
+  }
+}
