@@ -73,7 +73,7 @@
   /* ---------- Gallery data ---------- */
   const products = [
     { name: "Aoi", note: "Sidr · Lavender · Olive", from: "#2d3a2e", to: "#1a1a1a", img: "assets/image-1.jpg", webp: "assets/image-1.webp" },
-    { name: "Azure Mist", note: "Blue Tansy · Sea", from: "#cfe0f5", to: "#2A6FD6", img: "assets/image-2.jpg", webp: "assets/image-2.webp" },
+    { name: "ren", note: "Blue Tansy · Sea", from: "#cfe0f5", to: "#2A6FD6", img: "assets/image-2.jpg", webp: "assets/image-2.webp" },
     { name: "Kuro", note: "Coffee · Lemon · Lavender", from: "#c4a882", to: "#3d2b1f", img: "assets/image-3.jpg", webp: "assets/image-3.webp" },
     { name: "Hikari", note: "Oat · Lemon", from: "#f0e6d3", to: "#C8B078", img: "assets/image-4.jpg", webp: "assets/image-4.webp" }
   ];
