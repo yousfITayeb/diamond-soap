@@ -10,7 +10,7 @@
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-400.woff2" crossorigin />
 
   <!-- Cache-bust: bump ?v= on every deploy, or auto-generate via build script -->
-  <link rel="stylesheet" href="css/styles.min.css?v=20260920" />
+  <link rel="stylesheet" href="css/styles.min.css?v=20260920b" />
 </head>
 <body>
 
@@ -29,15 +29,15 @@
         <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
 
-      <div class="brand">
-        <span class="brand-name">Diamond Soap <em>Naturals</em></span>
-        <a href="#home" class="brand-logo" aria-label="Diamond Soap Naturals home">
+      <a href="#home" class="brand" aria-label="Diamond Soap Naturals home">
+        <span class="brand-logo">
           <picture>
             <source srcset="assets/hero-poster-logo.webp" type="image/webp" />
-            <img src="assets/hero-poster-logo.jpg" alt="Diamond Soap Naturals" class="logo-img" width="42" height="42" />
+            <img src="assets/hero-poster-logo.jpg" alt="" class="logo-img" width="42" height="42" />
           </picture>
-        </a>
-      </div>
+        </span>
+        <span class="brand-name">Diamond Soap <em>Naturals</em></span>
+      </a>
 
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">
         <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0-13v2m0 14v2M4 12H2m20 0h-2M5.6 5.6 4.2 4.2m15.6 15.6-1.4-1.4M18.4 5.6l1.4-1.4M2.8 19.8l1.4-1.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -142,7 +142,7 @@
         <p class="eyebrow gold-text">Visit & Connect</p>
         <h2 class="section-title">We'd love to meet you</h2>
       </div>
-<div class="info-grid">
+      <div class="info-grid">
         <article class="info-card reveal" data-ripple>
           <span class="info-icon" aria-hidden="true"><svg viewBox="0 0 512 512" width="22" height="22"><path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/></svg></span>
           <h3>Phone</h3>
@@ -202,6 +202,6 @@
     </div>
   </div>
 
-  <script src="js/script.min.js?v=20260920" defer></script>
+  <script src="js/script.min.js?v=20260920b" defer></script>
 </body>
 </html>

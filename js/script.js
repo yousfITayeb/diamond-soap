@@ -31,13 +31,13 @@
     navDrawer.classList.add("open");
     if (navBackdrop) navBackdrop.classList.add("open");
     navToggle.setAttribute("aria-expanded", "true");
-    document.body.style.overflow = "hidden";
+    document.body.classList.add("no-scroll");
   }
   function closeNavDrawer() {
     navDrawer.classList.remove("open");
     if (navBackdrop) navBackdrop.classList.remove("open");
     navToggle.setAttribute("aria-expanded", "false");
-    document.body.style.overflow = "";
+    document.body.classList.remove("no-scroll");
   }
   navToggle.addEventListener("click", () => {
     if (navDrawer.classList.contains("open")) closeNavDrawer();
@@ -59,17 +59,24 @@
   /* ---------- Floating particles ---------- */
   const pWrap = document.getElementById("particles");
   if (pWrap && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    const COUNT = window.innerWidth < 760 ? 4 : 6;
+    const COUNT = window.innerWidth < 760 ? 3 : 5;
+    const particles = [];
     for (let i = 0; i < COUNT; i++) {
       const p = document.createElement("span");
       p.className = "particle";
-      const size = Math.random() * 5 + 2;
+      const size = Math.random() * 4 + 2;
       p.style.width = p.style.height = size + "px";
       p.style.left = Math.random() * 100 + "%";
       p.style.animationDuration = (Math.random() * 12 + 10) + "s";
       p.style.animationDelay = (Math.random() * 12) + "s";
       pWrap.appendChild(p);
+      particles.push(p);
     }
+    document.addEventListener("visibilitychange", () => {
+      particles.forEach(p => {
+        p.style.animationPlayState = document.hidden ? "paused" : "running";
+      });
+    });
   }
 
   /* ---------- Ripple effect ---------- */
@@ -156,17 +163,23 @@
   function openLightbox(p) {
     lastFocusedElement = document.activeElement;
     const imgUrl = p.webp || p.img;
-    lightboxImg.style.backgroundImage = `url("${imgUrl}")`;
+    lightboxImg.innerHTML = '';
+    const img = document.createElement('img');
+    img.src = p.img;
+    img.alt = p.name + ' — ' + p.note;
+    img.className = 'lightbox-photo';
+    lightboxImg.appendChild(img);
     lightboxCap.innerHTML = `<span>${p.note}</span>${p.name}`;
     lightbox.classList.add("open");
     lightbox.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
+    document.body.classList.add("no-scroll");
     lightboxClose.focus();
   }
   function closeLightbox() {
     lightbox.classList.remove("open");
     lightbox.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
+    document.body.classList.remove("no-scroll");
+    lightboxImg.innerHTML = '';
     if (lastFocusedElement) lastFocusedElement.focus();
   }
   lightboxClose.addEventListener("click", closeLightbox);
