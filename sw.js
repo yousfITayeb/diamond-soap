@@ -15,8 +15,6 @@ const ASSETS = [
   './assets/image-3.jpg',
   './assets/image-4.webp',
   './assets/image-4.jpg',
-  './assets/hero-poster.jpg',
-  './assets/hero-poster.webp',
   './assets/fonts/inter-400.woff2'
 ];
 

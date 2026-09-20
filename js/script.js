@@ -7,15 +7,50 @@
   /* ---------- Theme ---------- */
   const root = document.documentElement;
   const themeToggle = document.getElementById("themeToggle");
+  const themeToggleMobile = document.getElementById("themeToggleMobile");
   const stored = localStorage.getItem("ds-theme");
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   if (stored) root.setAttribute("data-theme", stored);
   else if (prefersDark) root.setAttribute("data-theme", "dark");
 
-  themeToggle.addEventListener("click", () => {
+  function toggleTheme() {
     const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
     root.setAttribute("data-theme", next);
     localStorage.setItem("ds-theme", next);
+  }
+  themeToggle.addEventListener("click", toggleTheme);
+  if (themeToggleMobile) themeToggleMobile.addEventListener("click", toggleTheme);
+
+  /* ---------- Mobile Navigation ---------- */
+  const navToggle = document.getElementById("navToggle");
+  const navDrawer = document.getElementById("navDrawer");
+  const navBackdrop = document.getElementById("navBackdrop");
+  const navDrawerLinks = navDrawer ? navDrawer.querySelectorAll(".nav-drawer-link") : [];
+
+  function openNavDrawer() {
+    navDrawer.classList.add("open");
+    if (navBackdrop) navBackdrop.classList.add("open");
+    navToggle.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+  function closeNavDrawer() {
+    navDrawer.classList.remove("open");
+    if (navBackdrop) navBackdrop.classList.remove("open");
+    navToggle.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+  navToggle.addEventListener("click", () => {
+    if (navDrawer.classList.contains("open")) closeNavDrawer();
+    else openNavDrawer();
+  });
+  navDrawerLinks.forEach((link) => {
+    link.addEventListener("click", closeNavDrawer);
+  });
+  if (navBackdrop) {
+    navBackdrop.addEventListener("click", closeNavDrawer);
+  }
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && navDrawer.classList.contains("open")) closeNavDrawer();
   });
 
   /* ---------- Year ---------- */
@@ -24,7 +59,7 @@
   /* ---------- Floating particles ---------- */
   const pWrap = document.getElementById("particles");
   if (pWrap && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    const COUNT = window.innerWidth < 760 ? 8 : 12;
+    const COUNT = window.innerWidth < 760 ? 4 : 6;
     for (let i = 0; i < COUNT; i++) {
       const p = document.createElement("span");
       p.className = "particle";
@@ -72,33 +107,11 @@
 
   /* ---------- Gallery data ---------- */
   const products = [
-    { name: "Aoi", note: "Sidr · Lavender · Olive", from: "#2d3a2e", to: "#1a1a1a", img: "assets/image-1.jpg", webp: "assets/image-1.webp" },
-    { name: "ren", note: "Blue Tansy · Sea", from: "#cfe0f5", to: "#2A6FD6", img: "assets/image-2.jpg", webp: "assets/image-2.webp" },
-    { name: "Kuro", note: "Coffee · Lemon · Lavender", from: "#c4a882", to: "#3d2b1f", img: "assets/image-3.jpg", webp: "assets/image-3.webp" },
-    { name: "Hikari", note: "Oat · Lemon", from: "#f0e6d3", to: "#C8B078", img: "assets/image-4.jpg", webp: "assets/image-4.webp" }
+    { name: "Aoi", note: "Sidr · Lavender · Olive", img: "assets/image-1.jpg", webp: "assets/image-1.webp" },
+    { name: "ren", note: "Blue Tansy · Sea", img: "assets/image-2.jpg", webp: "assets/image-2.webp" },
+    { name: "Kuro", note: "Coffee · Lemon · Lavender", img: "assets/image-3.jpg", webp: "assets/image-3.webp" },
+    { name: "Hikari", note: "Oat · Lemon", img: "assets/image-4.jpg", webp: "assets/image-4.webp" }
   ];
-
-  function soapSVG(from, to, label) {
-    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='400' height='533'>
-      <defs>
-        <linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>
-          <stop offset='0' stop-color='${from}'/><stop offset='1' stop-color='${to}'/>
-        </linearGradient>
-        <radialGradient id='sh' cx='0.35' cy='0.3' r='0.8'>
-          <stop offset='0' stop-color='rgba(255,255,255,0.55)'/>
-          <stop offset='0.5' stop-color='rgba(255,255,255,0)'/>
-        </radialGradient>
-        <filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncA type='linear' slope='0.06'/></feComponentTransfer><feComposite operator='over' in2='SourceGraphic'/></filter>
-      </defs>
-      <rect width='400' height='533' fill='url(#g)'/>
-      <rect width='400' height='533' fill='url(#g)' filter='url(#n)'/>
-      <rect width='400' height='533' fill='url(#sh)'/>
-      <ellipse cx='200' cy='300' rx='150' ry='120' fill='rgba(255,255,255,0.10)'/>
-      <circle cx='150' cy='200' r='60' fill='rgba(255,255,255,0.18)'/>
-      <text x='200' y='500' font-family='Inter, sans-serif' font-size='14' letter-spacing='2' fill='rgba(255,255,255,0.55)' text-anchor='middle'>DIAMOND SOAP</text>
-    </svg>`;
-    return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
-  }
 
   const grid = document.getElementById("galleryGrid");
   products.forEach((p, i) => {
@@ -106,6 +119,14 @@
     card.className = "gallery-card reveal";
     card.setAttribute("aria-label", "View " + p.name);
     card.style.transitionDelay = (i % 3) * 0.08 + "s";
+
+    const picture = document.createElement("picture");
+    if (p.webp) {
+      const source = document.createElement("source");
+      source.type = "image/webp";
+      source.srcset = p.webp;
+      picture.appendChild(source);
+    }
     const img = document.createElement("img");
     img.className = "g-img";
     img.src = p.img;
@@ -113,12 +134,9 @@
     img.width = 400;
     img.height = 533;
     img.loading = "lazy";
-    img.decoding = "async";
-    if (p.webp) {
-      img.onerror = function() { this.onerror = null; this.src = p.img; };
-      img.src = p.webp;
-    }
-    card.appendChild(img);
+    picture.appendChild(img);
+
+    card.appendChild(picture);
     const label = document.createElement("div");
     label.className = "g-label";
     label.innerHTML = `${p.name}<span>${p.note}</span>`;
@@ -133,23 +151,34 @@
   const lightboxImg = document.getElementById("lightboxImg");
   const lightboxCap = document.getElementById("lightboxCaption");
   const lightboxClose = document.getElementById("lightboxClose");
+  let lastFocusedElement = null;
 
   function openLightbox(p) {
+    lastFocusedElement = document.activeElement;
     const imgUrl = p.webp || p.img;
     lightboxImg.style.backgroundImage = `url("${imgUrl}")`;
     lightboxCap.innerHTML = `<span>${p.note}</span>${p.name}`;
     lightbox.classList.add("open");
     lightbox.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
+    lightboxClose.focus();
   }
   function closeLightbox() {
     lightbox.classList.remove("open");
     lightbox.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
+    if (lastFocusedElement) lastFocusedElement.focus();
   }
   lightboxClose.addEventListener("click", closeLightbox);
   lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeLightbox(); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLightbox(); });
+  document.addEventListener("keydown", (e) => {
+    if (!lightbox.classList.contains("open")) return;
+    if (e.key === "Escape") { closeLightbox(); return; }
+    if (e.key === "Tab") {
+      e.preventDefault();
+      lightboxClose.focus();
+    }
+  });
 
   /* ---------- Back to top ---------- */
   const btt = document.getElementById("backToTop");
