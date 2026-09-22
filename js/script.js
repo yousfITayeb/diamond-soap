@@ -72,6 +72,16 @@
       pWrap.appendChild(p);
       particles.push(p);
     }
+    // Pause particles when off-screen to save CPU
+    const particleObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        particles.forEach(p => {
+          p.style.animationPlayState = entry.isIntersecting ? "running" : "paused";
+        });
+      });
+    }, { rootMargin: "100px" });
+    particleObserver.observe(pWrap);
+    // Also pause when tab is hidden
     document.addEventListener("visibilitychange", () => {
       particles.forEach(p => {
         p.style.animationPlayState = document.hidden ? "paused" : "running";
@@ -90,7 +100,10 @@
       span.style.left = (e.clientX - r.left - size / 2) + "px";
       span.style.top = (e.clientY - r.top - size / 2) + "px";
       el.appendChild(span);
-      span.addEventListener("animationend", () => span.remove());
+      // Cleanup via animationend + timeout fallback
+      const cleanup = () => span.remove();
+      span.addEventListener("animationend", cleanup, { once: true });
+      setTimeout(cleanup, 800); // fallback if animationend fails
     });
   }
   document.querySelectorAll("[data-ripple]").forEach(attachRipple);
@@ -106,7 +119,7 @@
           io.unobserve(en.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+    }, { threshold: 0.1, rootMargin: "0px 0px -5% 0px" });
     document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
   } else {
     document.querySelectorAll(".reveal").forEach((el) => el.classList.add("in"));
@@ -114,10 +127,10 @@
 
   /* ---------- Gallery data ---------- */
   const products = [
-    { name: "Aoi", note: "Sidr · Lavender · Olive", img: "assets/image-1.jpg", webp: "assets/image-1.webp" },
-    { name: "ren", note: "Blue Tansy · Sea", img: "assets/image-2.jpg", webp: "assets/image-2.webp" },
-    { name: "Kuro", note: "Coffee · Lemon · Lavender", img: "assets/image-3.jpg", webp: "assets/image-3.webp" },
-    { name: "Hikari", note: "Oat · Lemon", img: "assets/image-4.jpg", webp: "assets/image-4.webp" }
+    { name: "Aoi", note: "Sidr · Lavender · Olive", img: "assets/image-1.jpg", webp: "assets/image-1.webp", w: 400, h: 533 },
+    { name: "ren", note: "Blue Tansy · Sea", img: "assets/image-2.jpg", webp: "assets/image-2.webp", w: 400, h: 533 },
+    { name: "Kuro", note: "Coffee · Lemon · Lavender", img: "assets/image-3.jpg", webp: "assets/image-3.webp", w: 400, h: 533 },
+    { name: "Hikari", note: "Oat · Lemon", img: "assets/image-4.jpg", webp: "assets/image-4.webp", w: 400, h: 533 }
   ];
 
   const grid = document.getElementById("galleryGrid");
@@ -138,8 +151,8 @@
     img.className = "g-img";
     img.src = p.img;
     img.alt = p.name + " — " + p.note;
-    img.width = 400;
-    img.height = 533;
+    img.width = p.w;
+    img.height = p.h;
     img.loading = "lazy";
     picture.appendChild(img);
 
@@ -162,12 +175,13 @@
 
   function openLightbox(p) {
     lastFocusedElement = document.activeElement;
-    const imgUrl = p.webp || p.img;
     lightboxImg.innerHTML = '';
     const img = document.createElement('img');
-    img.src = p.img;
+    img.src = p.webp || p.img;
     img.alt = p.name + ' — ' + p.note;
     img.className = 'lightbox-photo';
+    img.width = p.w;
+    img.height = p.h;
     lightboxImg.appendChild(img);
     lightboxCap.innerHTML = `<span>${p.note}</span>${p.name}`;
     lightbox.classList.add("open");
