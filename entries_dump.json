@@ -1,0 +1,164 @@
+[
+  {
+    "name": "file:///C:/Users/tyous/OneDrive/Desktop/vcard/diamond-soap/index.html",
+    "entryType": "navigation",
+    "startTime": 0,
+    "duration": 338.5,
+    "details": {
+      "name": "file:///C:/Users/tyous/OneDrive/Desktop/vcard/diamond-soap/index.html",
+      "entryType": "navigation",
+      "startTime": 0,
+      "duration": 338.5,
+      "navigationId": 9951,
+      "initiatorType": "navigation",
+      "deliveryType": "",
+      "nextHopProtocol": "",
+      "renderBlockingStatus": "non-blocking",
+      "contentType": "text/html",
+      "contentEncoding": "",
+      "workerStart": 0,
+      "workerRouterEvaluationStart": 0,
+      "workerCacheLookupStart": 0,
+      "workerMatchedSourceType": "",
+      "workerFinalSourceType": "",
+      "redirectStart": 0,
+      "redirectEnd": 0,
+      "fetchStart": 0.5,
+      "domainLookupStart": 0.5,
+      "domainLookupEnd": 0.5,
+      "connectStart": 0.5,
+      "secureConnectionStart": 0,
+      "connectEnd": 0.5,
+      "requestStart": 0.5,
+      "responseStart": 0.5,
+      "firstInterimResponseStart": 0,
+      "finalResponseHeadersStart": 0,
+      "responseEnd": 11.699999999254942,
+      "transferSize": 18279,
+      "encodedBodySize": 17979,
+      "decodedBodySize": 17979,
+      "responseStatus": 200,
+      "serverTiming": [],
+      "unloadEventStart": 0,
+      "unloadEventEnd": 0,
+      "domInteractive": 36.80000000074506,
+      "domContentLoadedEventStart": 288.8999999985099,
+      "domContentLoadedEventEnd": 289,
+      "domComplete": 337,
+      "loadEventStart": 337.19999999925494,
+      "loadEventEnd": 338.5,
+      "type": "navigate",
+      "redirectCount": 0,
+      "activationStart": 0,
+      "criticalCHRestart": 0,
+      "notRestoredReasons": null,
+      "confidence": {
+        "randomizedTriggerRate": 0.4994798,
+        "value": "high"
+      }
+    }
+  },
+  {
+    "name": "visible",
+    "entryType": "visibility-state",
+    "startTime": 0,
+    "duration": 0,
+    "details": {
+      "name": "visible",
+      "entryType": "visibility-state",
+      "startTime": 0,
+      "duration": 0,
+      "navigationId": 9951
+    }
+  },
+  {
+    "name": "long-animation-frame",
+    "entryType": "long-animation-frame",
+    "startTime": 32.399999998509884,
+    "duration": 163,
+    "details": {
+      "name": "long-animation-frame",
+      "entryType": "long-animation-frame",
+      "startTime": 32.399999998509884,
+      "duration": 163,
+      "navigationId": 9951,
+      "paintTime": 195.39999999850988,
+      "presentationTime": 256,
+      "renderStart": 41.399999998509884,
+      "styleAndLayoutStart": 41.399999998509884,
+      "firstUIEventTimestamp": 0,
+      "blockingDuration": 107.4,
+      "scripts": []
+    }
+  },
+  {
+    "name": "long-animation-frame",
+    "entryType": "long-animation-frame",
+    "startTime": 198.89999999850988,
+    "duration": 132.60000000149012,
+    "details": {
+      "name": "long-animation-frame",
+      "entryType": "long-animation-frame",
+      "startTime": 198.89999999850988,
+      "duration": 132.60000000149012,
+      "navigationId": 9951,
+      "paintTime": 331.5,
+      "presentationTime": 392,
+      "renderStart": 290.0999999977648,
+      "styleAndLayoutStart": 290.19999999925494,
+      "firstUIEventTimestamp": 0,
+      "blockingDuration": 14.4,
+      "scripts": []
+    }
+  },
+  {
+    "name": "first-paint",
+    "entryType": "paint",
+    "startTime": 256,
+    "duration": 0,
+    "details": {
+      "name": "first-paint",
+      "entryType": "paint",
+      "startTime": 256,
+      "duration": 0,
+      "navigationId": 9951,
+      "paintTime": 195.39999999850988,
+      "presentationTime": 256
+    }
+  },
+  {
+    "name": "first-contentful-paint",
+    "entryType": "paint",
+    "startTime": 256,
+    "duration": 0,
+    "details": {
+      "name": "first-contentful-paint",
+      "entryType": "paint",
+      "startTime": 256,
+      "duration": 0,
+      "navigationId": 9951,
+      "paintTime": 195.39999999850988,
+      "presentationTime": 256
+    }
+  },
+  {
+    "name": "long-animation-frame",
+    "entryType": "long-animation-frame",
+    "startTime": 4574.699999999255,
+    "duration": 58.899999998509884,
+    "details": {
+      "name": "long-animation-frame",
+      "entryType": "long-animation-frame",
+      "startTime": 4574.699999999255,
+      "duration": 58.899999998509884,
+      "navigationId": 9951,
+      "paintTime": 4633.599999997765,
+      "presentationTime": 4728,
+      "renderStart": 4587.39999999851,
+      "styleAndLayoutStart": 4632.699999999255,
+      "firstUIEventTimestamp": 0,
+      "blockingDuration": 0,
+      "scripts": []
+    }
+  }
+]

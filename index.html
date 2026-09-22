@@ -6,7 +6,21 @@
   <meta name="theme-color" content="#F8F6F2" />
   <meta name="description" content="Diamond Soap Naturals — pure, natural, hand-crafted luxury soaps. A premium skincare experience inspired by nature." />
   <title>Diamond Soap Naturals — Luxury Natural Soap</title>
+    <style>
+:root{--marble:#F8F6F2;--gold:#C8A96A;--gold-soft:#E6D2A8;--gold-deep:#9A7B3F;--text:#1c1a17;--text-soft:#6b6457;--surface:rgba(255,255,255,0.55);--surface-strong:rgba(255,255,255,0.78);--border-glass:rgba(200,169,106,0.45);--radius:18px;--ease:cubic-bezier(0.22,1,0.36,1);--font-en:'Inter',system-ui,-apple-system,sans-serif;--font-ar:'Cairo','Inter',sans-serif}
+html,body{font-family:var(--font-en);color:var(--text);overflow-x:hidden}
+.site-header{position:sticky;top:0;z-index:50;padding:10px clamp(16px,4vw,40px);background:linear-gradient(180deg,var(--surface-strong),transparent);border-bottom:1px solid rgba(200,169,106,0.18);animation:dropIn .9s var(--ease) both}
+@keyframes dropIn{from{transform:translateY(-100%);opacity:0}to{transform:none;opacity:1}}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:var(--container);margin:0 auto;overflow-x:hidden}
+.brand{display:flex;align-items:center;gap:10px;margin-left:auto}
+.logo-img{width:38px;height:38px;object-fit:contain;border-radius:12px}
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(80px,15vh,120px) clamp(20px,5vw,48px) clamp(60px,10vh,80px);overflow:hidden}
+.hero-title{font-size:clamp(2rem,8vw,4.2rem);font-weight:700;line-height:1.05;letter-spacing:-0.02em}
+.hero-eyebrow{letter-spacing:clamp(0.16em,3vw,0.32em);font-size:clamp(0.65rem,1.5vw,0.78rem);text-transform:uppercase;color:var(--gold-deep);margin-bottom:clamp(12px,3vw,18px)}
+.hero-sub{font-size:clamp(0.88rem,2.5vw,1.15rem);color:var(--text-soft);font-weight:300;padding:0 6px;line-height:1.7;letter-spacing:0.03em;overflow-wrap:break-word;word-break:break-word;max-width:100%}
+    </style>
 
+  <link rel="preload" as="image" type="image/avif" href="assets/hero-poster-logo.avif" />
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-400.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-300.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-500.woff2" crossorigin />
@@ -16,9 +30,9 @@
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/cairo-300.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/cairo-600.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/cairo-700.woff2" crossorigin />
-
-  <!-- Cache-bust: bump ?v= on every deploy, or auto-generate via build script -->
-  <link rel="stylesheet" href="css/styles.min.css?v=20260920b" />
+  <link rel="preload" as="style" href="css/styles.min.css?v=20260922a" />
+  <link rel="stylesheet" href="css/styles.min.css?v=20260922a" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="css/styles.min.css?v=20260922a" /></noscript>
 </head>
 <body>
 
@@ -40,6 +54,7 @@
       <a href="#home" class="brand" aria-label="Diamond Soap Naturals home">
         <span class="brand-logo">
           <picture>
+            <source srcset="assets/hero-poster-logo.avif" type="image/avif" />
             <source srcset="assets/hero-poster-logo.webp" type="image/webp" />
             <img src="assets/hero-poster-logo.jpg" alt="" class="logo-img" width="42" height="42" />
           </picture>
@@ -187,6 +202,7 @@
   <footer class="site-footer">
     <a href="#top" class="footer-logo" aria-label="Back to top">
       <picture>
+        <source srcset="assets/hero-poster-logo.avif" type="image/avif" />
         <source srcset="assets/hero-poster-logo.webp" type="image/webp" />
         <img src="assets/hero-poster-logo.jpg" alt="Diamond Soap Naturals" class="logo-img" width="42" height="42" loading="lazy" />
       </picture>

@@ -59,7 +59,8 @@
   /* ---------- Floating particles ---------- */
   const pWrap = document.getElementById("particles");
   if (pWrap && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    const COUNT = window.innerWidth < 760 ? 3 : 5;
+    // Reduced particle count for better performance
+    const COUNT = window.innerWidth < 760 ? 2 : 3;
     const particles = [];
     for (let i = 0; i < COUNT; i++) {
       const p = document.createElement("span");
@@ -67,8 +68,8 @@
       const size = Math.random() * 4 + 2;
       p.style.width = p.style.height = size + "px";
       p.style.left = Math.random() * 100 + "%";
-      p.style.animationDuration = (Math.random() * 12 + 10) + "s";
-      p.style.animationDelay = (Math.random() * 12) + "s";
+      p.style.animationDuration = (Math.random() * 15 + 15) + "s"; // Longer duration = less frequent repaints
+      p.style.animationDelay = (Math.random() * 10) + "s";
       pWrap.appendChild(p);
       particles.push(p);
     }
@@ -87,6 +88,11 @@
         p.style.animationPlayState = document.hidden ? "paused" : "running";
       });
     });
+    // Cleanup on page unload
+    window.addEventListener("beforeunload", () => {
+      particleObserver.disconnect();
+      particles.forEach(p => p.remove());
+    }, { once: true });
   }
 
   /* ---------- Ripple effect ---------- */
@@ -127,10 +133,10 @@
 
   /* ---------- Gallery data ---------- */
   const products = [
-    { name: "Aoi", note: "Sidr · Lavender · Olive", img: "assets/image-1.jpg", webp: "assets/image-1.webp", w: 400, h: 533 },
-    { name: "ren", note: "Blue Tansy · Sea", img: "assets/image-2.jpg", webp: "assets/image-2.webp", w: 400, h: 533 },
-    { name: "Kuro", note: "Coffee · Lemon · Lavender", img: "assets/image-3.jpg", webp: "assets/image-3.webp", w: 400, h: 533 },
-    { name: "Hikari", note: "Oat · Lemon", img: "assets/image-4.jpg", webp: "assets/image-4.webp", w: 400, h: 533 }
+    { name: "Aoi", note: "Sidr · Lavender · Olive", id: "image-1", w: 400, h: 533 },
+    { name: "ren", note: "Blue Tansy · Sea", id: "image-2", w: 400, h: 533 },
+    { name: "Kuro", note: "Coffee · Lemon · Lavender", id: "image-3", w: 400, h: 533 },
+    { name: "Hikari", note: "Oat · Lemon", id: "image-4", w: 400, h: 533 }
   ];
 
   const grid = document.getElementById("galleryGrid");
@@ -141,19 +147,55 @@
     card.style.transitionDelay = (i % 3) * 0.08 + "s";
 
     const picture = document.createElement("picture");
-    if (p.webp) {
-      const source = document.createElement("source");
-      source.type = "image/webp";
-      source.srcset = p.webp;
-      picture.appendChild(source);
-    }
+    const sizes = "(max-width: 430px) 100vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw";
+    
+    // AVIF sources (best compression)
+    const sourceAvif = document.createElement("source");
+    sourceAvif.type = "image/avif";
+    sourceAvif.srcset = `
+      assets/${p.id}-400w.avif 400w,
+      assets/${p.id}-800w.avif 800w,
+      assets/${p.id}-1200w.avif 1200w
+    `.trim();
+    sourceAvif.sizes = sizes;
+    picture.appendChild(sourceAvif);
+    
+    // WebP sources
+    const sourceWebp = document.createElement("source");
+    sourceWebp.type = "image/webp";
+    sourceWebp.srcset = `
+      assets/${p.id}-400w.webp 400w,
+      assets/${p.id}-800w.webp 800w,
+      assets/${p.id}-1200w.webp 1200w
+    `.trim();
+    sourceWebp.sizes = sizes;
+    picture.appendChild(sourceWebp);
+    
+    // JPEG sources
+    const sourceJpeg = document.createElement("source");
+    sourceJpeg.type = "image/jpeg";
+    sourceJpeg.srcset = `
+      assets/${p.id}-400w.jpeg 400w,
+      assets/${p.id}-800w.jpeg 800w,
+      assets/${p.id}-1200w.jpeg 1200w
+    `.trim();
+    sourceJpeg.sizes = sizes;
+    picture.appendChild(sourceJpeg);
+    
+    // Fallback JPEG
     const img = document.createElement("img");
     img.className = "g-img";
-    img.src = p.img;
+    img.src = `assets/${p.id}.jpg`;
     img.alt = p.name + " — " + p.note;
     img.width = p.w;
     img.height = p.h;
     img.loading = "lazy";
+    img.srcset = `
+      assets/${p.id}-400w.jpeg 400w,
+      assets/${p.id}-800w.jpeg 800w,
+      assets/${p.id}-1200w.jpeg 1200w
+    `.trim();
+    img.sizes = sizes;
     picture.appendChild(img);
 
     card.appendChild(picture);
@@ -176,13 +218,30 @@
   function openLightbox(p) {
     lastFocusedElement = document.activeElement;
     lightboxImg.innerHTML = '';
-    const img = document.createElement('img');
-    img.src = p.webp || p.img;
+    const picture = document.createElement("picture");
+    
+    // AVIF
+    const sourceAvif = document.createElement("source");
+    sourceAvif.type = "image/avif";
+    sourceAvif.srcset = `assets/${p.id}.avif`;
+    picture.appendChild(sourceAvif);
+    
+    // WebP
+    const sourceWebp = document.createElement("source");
+    sourceWebp.type = "image/webp";
+    sourceWebp.srcset = `assets/${p.id}.webp`;
+    picture.appendChild(sourceWebp);
+    
+    // JPEG fallback
+    const img = document.createElement("img");
+    img.src = `assets/${p.id}.jpg`;
     img.alt = p.name + ' — ' + p.note;
     img.className = 'lightbox-photo';
     img.width = p.w;
     img.height = p.h;
-    lightboxImg.appendChild(img);
+    picture.appendChild(img);
+    
+    lightboxImg.appendChild(picture);
     lightboxCap.innerHTML = `<span>${p.note}</span>${p.name}`;
     lightbox.classList.add("open");
     lightbox.setAttribute("aria-hidden", "false");
@@ -209,9 +268,17 @@
 
   /* ---------- Back to top ---------- */
   const btt = document.getElementById("backToTop");
-  window.addEventListener("scroll", () => {
-    btt.classList.toggle("show", window.scrollY > 500);
-  }, { passive: true });
+  // Use IntersectionObserver instead of scroll listener for better performance
+  const sentinel = document.createElement("div");
+  sentinel.style.height = "1px";
+  sentinel.style.marginTop = "-1px";
+  document.body.appendChild(sentinel);
+  const bttObserver = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      btt.classList.toggle("show", !en.isIntersecting);
+    });
+  }, { rootMargin: "500px 0px 0px 0px" });
+  bttObserver.observe(sentinel);
   btt.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
   /* ---------- Active nav link on scroll ---------- */
